@@ -5,6 +5,7 @@ on:
       - main
     paths:
       - "02 Starting Project/**"
+  workflow_dispatch:
 
 defaults:
   run:
@@ -29,6 +30,7 @@ jobs:
       - name: Run tests
         run: pnpm test
   deploy:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Get code
