@@ -3,7 +3,7 @@ on:
   pull_request:
     types: [opened]
     paths:
-      - "./01 Starting Project**"
+      - "01 Starting Project/**"
   workflow_dispatch:
 
 defaults:
