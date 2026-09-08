@@ -3,6 +3,7 @@ on:
   workflow_run:
     workflows: ["Build and Deploy Project"]
     types: [completed]
+  workflow_dispatch:
 
 defaults:
   run:
