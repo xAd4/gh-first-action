@@ -4,6 +4,23 @@ on:
     workflows: ["Build and Deploy Project"]
     types: [completed]
   workflow_dispatch:
+  issues:
+    types:
+      [
+        closed,
+        opened,
+        edited,
+        deleted,
+        pinned,
+        unpinned,
+        transferred,
+        assigned,
+        unassigned,
+        labeled,
+        unlabeled,
+        locked,
+        unlocked,
+      ]
 
 defaults:
   run:
