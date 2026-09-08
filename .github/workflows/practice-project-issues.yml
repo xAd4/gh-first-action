@@ -1,0 +1,19 @@
+name: Get Issues Context
+on:
+  workflow_run:
+    workflows: ["Build and Deploy Project"]
+    types: [completed]
+
+defaults:
+  run:
+    working-directory: "./04 Practice Project (Start)"
+
+jobs:
+  get-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print issues context
+        run: |
+          echo "Issues Number: ${{ github.event.issue.number }}"
+          echo "Issues Title: ${{ github.event.issue.title }}"
+          echo "Issue Context: ${{ toJSON(github.event.issue) }}"

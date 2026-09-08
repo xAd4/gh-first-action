@@ -1,0 +1,46 @@
+name: Build and Deploy Project
+on:
+  workflow_run:
+    workflows: ["Deployment Project"]
+    types: [completed]
+
+defaults:
+  run:
+    working-directory: "./04 Practice Project (Start)"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 12
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build project
+        run: pnpm build
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 12
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Deploy Project
+        run: echo "Deploying project..." # Replace with your actual deployment command
