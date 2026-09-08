@@ -14,6 +14,6 @@ jobs:
     steps:
       - name: Print issues context
         run: |
-          echo "Issues Number: ${{ github.event.issue.number }}"
-          echo "Issues Title: ${{ github.event.issue.title }}"
-          echo "Issue Context: ${{ toJSON(github.event.issue) }}"
+          echo "Issues Number ${{ github.event.issue.number }}"
+          echo "Issues Title ${{ github.event.issue.title }}"
+          echo "Issue Context ${{ toJSON(github.event.issue) }}"
