@@ -37,8 +37,9 @@ jobs:
         with:
           name: dist-files
           path: |
-            dist
+            01 Starting Project/dist
             # Add any other files or directories you want to include in the artifact
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
