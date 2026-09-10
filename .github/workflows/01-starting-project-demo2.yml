@@ -5,6 +5,7 @@ on:
       - main
     paths:
       - "01 Starting Project/**"
+  workflow_dispatch:
 
 defaults:
   run:
@@ -25,6 +26,8 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
+    outputs:
+      script-file: ${{ steps.publish.outputs.script-file }}
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -32,6 +35,13 @@ jobs:
         run: npm ci
       - name: Build website
         run: npm run build
+      - name: Publish JS Asset filename
+        id: publish
+        # I must keep in mind my script-file outputs
+        # Uses find inside dist/ to capture the first .js filename cleanly
+        run: |
+          FILE_NAME=$(find dist -type f -name "*.js" -exec basename {} \; | head -n 1)
+          echo "script-file=$FILE_NAME" >> $GITHUB_OUTPUT
       - name: Upload artifacts
         uses: actions/upload-artifact@v7
         with:
@@ -52,6 +62,8 @@ jobs:
           name: dist-files
           path: 01 Starting Project/dist
       - name: Output contents
-        run: ls 
+        run: ls
+      - name: Output script-file
+        run: echo "Script file ${{needs.build.outputs.script-file}}"
       - name: Deploy
         run: echo "Deploying..."
